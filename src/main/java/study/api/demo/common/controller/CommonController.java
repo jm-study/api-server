@@ -3,10 +3,9 @@ package study.api.demo.common.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import study.api.demo.model.user.User;
-
-import java.util.Arrays;
+import study.api.demo.common.model.User;
 
 @RestController
 @Slf4j
@@ -34,7 +33,8 @@ public class CommonController {
 
     @ApiOperation(value = "test Api4")
     @GetMapping(value = "/test4/{id}")
-    public User testApi4(@PathVariable String id, @RequestParam User user) {
+    @ResponseStatus(HttpStatus.OK)
+    public User testApi4(@PathVariable String id, User user) {
         User user2 = new User().builder()
                 .id(user.getId())
                 .nicName(user.getNicName())

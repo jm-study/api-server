@@ -27,7 +27,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.6.1'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
 
     compile("org.apache.httpcomponents:httpmime:4.3.6")
     compile("org.springframework.boot:spring-boot-starter-web")
