@@ -3,46 +3,41 @@ package study.api.demo.common.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import study.api.demo.common.memory.*;
+import study.api.demo.common.model.Contents;
 import study.api.demo.common.model.User;
+import study.api.demo.common.service.UserService;
 
 @RestController
 @Slf4j
 @Api(value = "CommonController", description = "common api controller")
 public class CommonController {
+
+    @Autowired
+    private UserService userService;
     //API 정의
     // id 값으로 User 정보 조회
     @ApiOperation(value = "FindUserInfo Api")
-    @GetMapping(value = "/FindUserInfo/{userId}")
-    public User FindUserInfoApi(@PathVariable String userId) {
-
-        //임의 메모리 데이터 User
-        UserData userData = UserData.Instance();
-
-        System.out.println(userId);
-        User user = userData.FindToIdFromUserList(userId);
-        return user;
+    @GetMapping(value = "/getUserInfo/{userId}")
+    public User findUserInfoApi(@PathVariable String userId) {
+        return userService.getUserInfo(userId);
     }
 
     // id 값으로 User 정보 조회
     @ApiOperation(value = "AddUser Api")
-    @PostMapping(value = "/AddUser")
-    public String AddUserApi(@RequestBody User user) {
-
-        //임의 메모리 데이터 User
-        UserData userData = new UserData();
-
-        boolean result = userData.AddUserList(user);
-
-        if (result){
-            return userData.toString();
-        } else {
-            return "";
-        }
+    @PostMapping(value = "/updateUser")
+    public String addUserApi(@RequestBody User user) {
+        return userService.addUserInfo(user);
     }
 
+    @ApiOperation(value = "Macro Api")
+    @PostMapping(value = "/macro")
+    public Contents sendMacroString(@RequestBody User user) {
+        return userService.sendMacroString();
+    }
 //
 //    @ApiOperation(value = "test Api")
 //    @GetMapping(value = "/test")
