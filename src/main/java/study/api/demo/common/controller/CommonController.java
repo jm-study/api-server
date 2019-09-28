@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import study.api.demo.common.controller.request.CommonRequest;
 import study.api.demo.common.memory.*;
 import study.api.demo.common.model.Contents;
 import study.api.demo.common.model.User;
@@ -35,8 +36,8 @@ public class CommonController {
 
     @ApiOperation(value = "Macro Api")
     @PostMapping(value = "/macro")
-    public Contents sendMacroString(@RequestBody User user) {
-        return userService.sendMacroString();
+    public Contents sendMacroString(@RequestBody CommonRequest.GetMacroApiRequest request) throws Exception{
+        return userService.sendMacroString(request);
     }
 //
 //    @ApiOperation(value = "test Api")

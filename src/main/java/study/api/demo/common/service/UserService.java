@@ -2,6 +2,7 @@ package study.api.demo.common.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import study.api.demo.common.controller.request.CommonRequest;
 import study.api.demo.common.memory.UserData;
 import study.api.demo.common.model.Contents;
 import study.api.demo.common.model.User;
@@ -13,10 +14,26 @@ import java.util.UUID;
 public class UserService {
 
 
-    public Contents sendMacroString() {
-        String returnValue;
+    public Contents sendMacroString(CommonRequest.GetMacroApiRequest request) throws Exception{
+        Integer macroNo = request.getMacroContentsNo();
 
-        returnValue = UUID.randomUUID().toString() + "testString";
+        if(macroNo == null) {
+            throw new Exception("macro number is empty!");
+        }
+
+        String returnValue = null;
+
+        switch (macroNo) {
+            case 1:
+                returnValue = UUID.randomUUID().toString() + "testString";
+                break;
+            case 2:
+                returnValue = "study works!";
+                break;
+            case 3:
+                returnValue = "공부 좀 열심히 해라";
+                break;
+        }
 
         Contents returnContents = new Contents().builder()
                 .contents(returnValue)
