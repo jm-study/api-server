@@ -9,5 +9,6 @@ import lombok.*;
 @Builder
 public class Contents {
 
+    private String nicName;
     private String contents;
 }

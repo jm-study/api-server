@@ -12,19 +12,6 @@ import java.util.UUID;
 @Slf4j
 public class UserService {
 
-
-    public Contents sendMacroString() {
-        String returnValue;
-
-        returnValue = UUID.randomUUID().toString() + "testString";
-
-        Contents returnContents = new Contents().builder()
-                .contents(returnValue)
-                .build();
-
-        return returnContents;
-    }
-
     public String addUserInfo(User user) {
         //임의 메모리 데이터 User
         UserData userData = new UserData();
