@@ -4,12 +4,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import study.api.demo.common.controller.request.CommonRequest;
-import study.api.demo.common.memory.*;
 import study.api.demo.common.model.Contents;
 import study.api.demo.common.model.User;
+import study.api.demo.common.service.MessageService;
 import study.api.demo.common.service.UserService;
 
 @RestController
@@ -19,6 +17,9 @@ public class CommonController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageService messageService;
     //API 정의
     // id 값으로 User 정보 조회
     @ApiOperation(value = "FindUserInfo Api")
@@ -27,18 +28,27 @@ public class CommonController {
         return userService.getUserInfo(userId);
     }
 
-    // id 값으로 User 정보 조회
+    // user 추가
     @ApiOperation(value = "AddUser Api")
     @PostMapping(value = "/updateUser")
-    public String addUserApi(@RequestBody User user) {
+    public String updateUserApi(@RequestBody User user) {
         return userService.addUserInfo(user);
     }
 
     @ApiOperation(value = "Macro Api")
     @PostMapping(value = "/macro")
-    public Contents sendMacroString(@RequestBody CommonRequest.GetMacroApiRequest request) throws Exception{
-        return userService.sendMacroString(request);
+    public Contents sendMacroString(@RequestBody Contents contents) {
+        return messageService.sendMacroString();
     }
+
+    @ApiOperation(value = "Macro Api 2")
+    @PostMapping(value = "/macro/{userId}")
+    public Contents sendMacroStringAndUserInfo(@PathVariable String userId) {
+        return messageService.sendMacroStringWithNicName(userId);
+    }
+
+
+
 //
 //    @ApiOperation(value = "test Api")
 //    @GetMapping(value = "/test")

@@ -8,5 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Contents {
+
+    private String nicName;
     private String contents;
 }
